@@ -50,7 +50,7 @@ function getTranslateValue(props, node) {
   }
 
   // direction === 'down
-  return `translate3d(0, ${0 - (rect.top + rect.height)}px, 0)`;
+  return `translate3d(0, ${0 - (rect.top + rect.height + props.getTranslateOffset())}px, 0)`;
 }
 
 export function setTranslateValue(props, node) {
@@ -230,6 +230,11 @@ Slide.propTypes = {
    */
   direction: PropTypes.oneOf(['left', 'right', 'up', 'down']),
   /**
+   * A function returning an offset to use in anchor calculations translation in the 
+   * primary direction.
+   */
+  getTranslateOffset: PropType.func,
+  /**
    * If `true`, show the component; triggers the enter or exit animation.
    */
   in: PropTypes.bool,
@@ -280,6 +285,7 @@ Slide.defaultProps = {
     enter: duration.enteringScreen,
     exit: duration.leavingScreen,
   },
+  getTranslateOffset: () => 0
 };
 
 export default withTheme()(Slide);
